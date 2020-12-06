@@ -59,24 +59,50 @@ library(glue)
 map <- readLines("day03/sample.txt")
 map <- readLines("day03/data.txt")
 
-map_expanded <- (paste(map, map, map, map, map, map, map, map, sep = ""))
+map_expanded <- (paste(map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, sep = ""))
 
-row <- 1
-col <- 1
-
-slope <- c(3, 1)
-
-num_trees <- 0
-
-while (row < length(map_expanded)) {
-  row <- row + slope[2]
-  col <- col + slope[1]
+traverse <- function(slope) {
+  row <- 1
+  col <- 1
   
-  if (str_sub(map_expanded[row], col, col) == "#") {
-    message(glue("{row} {col} #"))
-    num_trees <- num_trees + 1
+  num_trees <- 0
+  
+  while (row < length(map_expanded)) {
+    row <- row + slope[2]
+    col <- col + slope[1]
+    
+    if (str_sub(map_expanded[row], col, col) == "#") {
+      # message(glue("{row} {col} #"))
+      num_trees <- num_trees + 1
+    }
   }
+  
+  num_trees
 }
 
+traverse(c(3, 1))
 
+
+
+# 
+# --- Part Two ---
+#   Time to check the rest of the slopes - you need to minimize the probability of a sudden arboreal stop, after all.
+# 
+# Determine the number of trees you would encounter if, for each of the following slopes, you start at the top-left corner and traverse the map all the way to the bottom:
+#   
+#   Right 1, down 1.
+# Right 3, down 1. (This is the slope you already checked.)
+# Right 5, down 1.
+# Right 7, down 1.
+# Right 1, down 2.
+# In the above example, these slopes would find 2, 7, 3, 4, and 2 tree(s) respectively; multiplied together, these produce the answer 336.
+# 
+# What do you get if you multiply together the number of trees encountered on each of the listed slopes?
+
+
+traverse(c(1, 1)) *
+traverse(c(3, 1)) *
+traverse(c(5, 1)) *
+traverse(c(7, 1)) *
+traverse(c(1, 2)) 
 
